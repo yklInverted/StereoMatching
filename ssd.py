@@ -21,14 +21,14 @@ def disparity_ssd(left, right, templateSize, window, lambdaValue):
     tpl_rows = tpl_cols = templateSize
     disparity = np.zeros(left.shape, dtype=np.float32)
 
-    for r in range(tpl_rows/2, im_rows-tpl_rows/2):
-        tr_min, tr_max = max(r-tpl_rows/2, 0), min(r+tpl_rows/2+1, im_rows)
-        for c in range(tpl_cols/2, im_cols-tpl_cols/2):
-            tc_min = max(c-tpl_cols/2, 0)
-            tc_max = min(c+tpl_cols/2+1, im_cols)
+    for r in range(int(tpl_rows/2), im_rows-int(tpl_rows/2)):
+        tr_min, tr_max = int(max(r-tpl_rows/2, 0)), int(min(r+tpl_rows/2+1, im_rows))
+        for c in range(int(tpl_cols/2), im_cols-int(tpl_cols/2)):
+            tc_min = int(max(c-tpl_cols/2, 0))
+            tc_max = int(min(c+tpl_cols/2+1, im_cols))
             tpl = left[tr_min:tr_max, tc_min:tc_max].astype(np.float32)
-            rc_min = max(c - window / 2, 0)
-            rc_max = min(c + window / 2 + 1, im_cols)
+            rc_min = int(max(c - window / 2, 0))
+            rc_max = int(min(c + window / 2 + 1, im_cols))
             R_strip = right[tr_min:tr_max, rc_min:rc_max].astype(np.float32)
             error = sumOfSquaredDiff(R_strip, tpl)
             c_tf = max(c-rc_min-tpl_cols/2, 0)

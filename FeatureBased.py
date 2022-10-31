@@ -17,10 +17,10 @@ def findCorners(image, window_size, k, thresh):
     cornerList = []
     copiedImage = image.copy()
     outputImage = cv2.cvtColor(copiedImage, cv2.COLOR_GRAY2RGB)
-    offset = window_size/2
+    offset = int(window_size/2)
 
     # Loop through the images and detect the corners
-    print "Finding Corners of the image"
+    print ("Finding Corners of the image")
     for y in range(offset, height-offset):
         for x in range(offset, width-offset):
             windowIxx = Ixx[y-offset:y+offset+1, x-offset:x+offset+1]
@@ -226,7 +226,7 @@ def propogate(left, right):
 
 
 def selectScore():
-    score = raw_input("Select a matching score: 1.SSD   2.SAD   3.NCC ")
+    score = '1'
 
     if score == '1':
         left, right = ssd()
